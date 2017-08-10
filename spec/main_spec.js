@@ -12,20 +12,44 @@ var main = require("../lib/main.js");
 describe("测试描述", function(){
     sinon.spy(console, 'log');
 
-    it("测试用例1", function(){
+   it("input the postcode of 5 bit", function () {
 
-        var result = main();
-        var expect_string = '';
-        
-        expect(expect_string).to.equal(result);
-    });
-
-    it("测试用例2", function(){
-
-        main();
-        var result = _.flatten(console.log.args).join("\n");
-        var expect_string = '';
+        var result = main('12345');
+        var expect_string = '|:::||::|:|::||::|::|:|:|::|:|:|';
 
         expect(expect_string).to.equal(result);
     });
+
+    it("input the postcode of 9 bit", function () {
+
+        var result = main('023456789');
+        var expect_string = '|||:::::|:|::||::|::|:|:|::||::|:::||::|:|:|:::||::|';
+
+        expect(expect_string).to.equal(result);
+    });
+
+    it("input the postcode of 10 bit", function () {
+
+        var result = main('17359-0628');
+        var expect_string = '|:::|||:::|::||::|:|:|:|::||::::||::::|:||::|:|:|::|';
+
+        expect(expect_string).to.equal(result);
+    });
+
+    it("input the barcode of 5 bit", function () {
+
+        var result = main('|:::||::|:|::||::|::|:|:|::|:|:|');
+        var expect_string = '12345';
+
+        expect(expect_string).to.equal(result);
+    });
+
+    it("input the barcode of 9 bit", function () {
+
+        var result = main('|||:::::|:|::||::|::|:|:|::||::|:::||::|:|:|:::||::|');
+        var expect_string = '02345-6789';
+
+        expect(expect_string).to.equal(result);
+    });
+      
 });
